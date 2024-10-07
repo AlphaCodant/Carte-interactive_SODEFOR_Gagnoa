@@ -66,7 +66,7 @@ overlays = new ol.layer.Group({
             title: 'india_state',
             // extent: [-180, -90, -180, 90],
             source: new ol.source.ImageWMS({
-                url: 'http://localhost:8080/geoserver/wms',
+                url: 'http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wms',
                 params: {
                     'LAYERS': 'india:india_state'
                 },
@@ -220,7 +220,7 @@ function legend() {
         var element = document.getElementById("legend");
         element.appendChild(head);
         var img = new Image();
-        img.src = "http://localhost:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=" + layer.get('title');
+        img.src = "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=" + layer.get('title');
         var src = document.getElementById("legend");
         src.appendChild(img);
 
@@ -237,7 +237,7 @@ legend();
 $(document).ready(function() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/geoserver/wfs?request=getCapabilities",
+        url: "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wfs?request=getCapabilities",
         dataType: "xml",
         success: function(xml) {
             var select = $('#layer');
@@ -309,7 +309,7 @@ $(function() {
     $(document).ready(function(){
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName="+value_layer,
+            url: "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName="+value_layer,
             dataType: "xml",
             success: function(xml) {
                 var select = $('#attributes');
@@ -331,7 +331,7 @@ $(function() {
     $(document).ready(function(){
               $.ajax({
                   type: "GET",
-                  url: "http://localhost:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName="+value_layer,
+                  url: "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName="+value_layer,
                   dataType: "xml",
                   success: function(xml) {
                   var select = $('#attributes2');
@@ -355,7 +355,7 @@ $(function() {
     $(document).ready(function(){
               $.ajax({
                   type: "GET",
-                  url: "http://localhost:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName="+value_layer,
+                  url: "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName="+value_layer,
                   dataType: "xml",
                   success: function(xml) {
                   var select = $('#attributes3');
@@ -376,7 +376,7 @@ $(function() {
     $(document).ready(function(){
               $.ajax({
                   type: "GET",
-                  url: "http://localhost:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName="+value_layer,
+                  url: "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName="+value_layer,
                   dataType: "xml",
                   success: function(xml) {
                   var select = $('#attributes4');
@@ -397,7 +397,7 @@ $(function() {
     $(document).ready(function(){
               $.ajax({
                   type: "GET",
-                  url: "http://localhost:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName="+value_layer,
+                  url: "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wfs?service=WFS&request=DescribeFeatureType&version=1.1.0&typeName="+value_layer,
                   dataType: "xml",
                   success: function(xml) {
                   var select = $('#attributes5');
@@ -555,7 +555,7 @@ $(function () {
 $(document).ready(function() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/geoserver/wfs?request=getCapabilities",
+        url: "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wfs?request=getCapabilities",
         dataType: "xml",
         success: function(xml) {
             var select = $('#layer1');
@@ -715,22 +715,22 @@ function query() {
         value_txt5 = value_txt5;
     }
     if (critereCoche1==true){
-        var url = "http://localhost:8080/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+value_layer+"&CQL_FILTER="+value_attribute+"+"+value_operator+"+'"+value_txt+"'&outputFormat=application/json"
+        var url = "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+value_layer+"&CQL_FILTER="+value_attribute+"+"+value_operator+"+'"+value_txt+"'&outputFormat=application/json"
     };
 
     if (critereCoche1==true&&critereCoche2==true){
-        var url = "http://localhost:8080/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+value_layer+"&CQL_FILTER="+value_attribute+"+"+value_operator+"+'"+value_txt+"'+AND+"+value_attribute2+"+"+value_operator2+"+'"+value_txt2+"'&outputFormat=application/json"
+        var url = "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+value_layer+"&CQL_FILTER="+value_attribute+"+"+value_operator+"+'"+value_txt+"'+AND+"+value_attribute2+"+"+value_operator2+"+'"+value_txt2+"'&outputFormat=application/json"
     };
 
     if (critereCoche1==true&&critereCoche2==true&&critereCoche3==true){
-        var url = "http://localhost:8080/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+value_layer+"&CQL_FILTER="+value_attribute+"+"+value_operator+"+'"+value_txt+"'+AND+"+value_attribute2+"+"+value_operator2+"+'"+value_txt2+"'+AND+"+value_attribute3+"+"+value_operator3+"+'"+value_txt3+"'&outputFormat=application/json"
+        var url = "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+value_layer+"&CQL_FILTER="+value_attribute+"+"+value_operator+"+'"+value_txt+"'+AND+"+value_attribute2+"+"+value_operator2+"+'"+value_txt2+"'+AND+"+value_attribute3+"+"+value_operator3+"+'"+value_txt3+"'&outputFormat=application/json"
     };
 
     if (critereCoche1==true&&critereCoche2==true&&critereCoche3==true&&critereCoche4==true){
-        var url = "http://localhost:8080/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+value_layer+"&CQL_FILTER="+value_attribute+"+"+value_operator+"+'"+value_txt+"'+AND+"+value_attribute2+"+"+value_operator2+"+'"+value_txt2+"'+AND+"+value_attribute3+"+"+value_operator3+"+'"+value_txt3+"'+AND+"+value_attribute4+"+"+value_operator4+"+'"+value_txt4+"'&outputFormat=application/json"
+        var url = "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+value_layer+"&CQL_FILTER="+value_attribute+"+"+value_operator+"+'"+value_txt+"'+AND+"+value_attribute2+"+"+value_operator2+"+'"+value_txt2+"'+AND+"+value_attribute3+"+"+value_operator3+"+'"+value_txt3+"'+AND+"+value_attribute4+"+"+value_operator4+"+'"+value_txt4+"'&outputFormat=application/json"
     };
     if (critereCoche1==true&&critereCoche2==true&&critereCoche3==true&&critereCoche4==true&&critereCoche5==true){
-        var url = "http://localhost:8080/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+value_layer+"&CQL_FILTER="+value_attribute+"+"+value_operator+"+'"+value_txt+"'+AND+"+value_attribute2+"+"+value_operator2+"+'"+value_txt2+"'+AND+"+value_attribute3+"+"+value_operator3+"+'"+value_txt3+"'+AND+"+value_attribute4+"+"+value_operator4+"+'"+value_txt4+"'+AND+"+value_attribute5+"+"+value_operator5+"+'"+value_txt5+"'&outputFormat=application/json"
+        var url = "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+value_layer+"&CQL_FILTER="+value_attribute+"+"+value_operator+"+'"+value_txt+"'+AND+"+value_attribute2+"+"+value_operator2+"+'"+value_txt2+"'+AND+"+value_attribute3+"+"+value_operator3+"+'"+value_txt3+"'+AND+"+value_attribute4+"+"+value_operator4+"+'"+value_txt4+"'+AND+"+value_attribute5+"+"+value_operator5+"+'"+value_txt5+"'&outputFormat=application/json"
     };
 
     style = new ol.style.Style({
@@ -1029,7 +1029,7 @@ function wms_layers() {
     $(document).ready(function() {
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/geoserver/wms?request=getCapabilities",
+            url: "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wms?request=getCapabilities",
             dataType: "xml",
             success: function(xml) {
                 $('#table_wms_layers').empty();
@@ -1122,7 +1122,7 @@ function add_layer() {
         title: layer_name,
         // extent: [-180, -90, -180, 90],
         source: new ol.source.ImageWMS({
-            url: 'http://localhost:8080/geoserver/wms',
+            url: 'http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wms',
             params: {
                 'LAYERS': layer_name
             },
@@ -1139,7 +1139,7 @@ function add_layer() {
         valeurTitle=[];
         valeurTitle.push(layer_name);
         i++;
-        var url = 'http://localhost:8080/geoserver/wms?request=getCapabilities';
+        var url = 'http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wms?request=getCapabilities';
     var parser = new ol.format.WMSCapabilities();
 
 
@@ -1189,7 +1189,7 @@ function add_layer() {
             valeurTitle.push(layer_name);
             console.log(valeurTitle);
             i++;
-            var url = 'http://localhost:8080/geoserver/wms?request=getCapabilities';
+            var url = 'http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wms?request=getCapabilities';
     var parser = new ol.format.WMSCapabilities();
 
 
@@ -1303,7 +1303,7 @@ function getinfo(evt) {
                 document.getElementById("framedis").style.height="92%";
                 var layer_title = layer.get('title');
                 var wmsSource = new ol.source.ImageWMS({
-                    url: 'http://localhost:8080/geoserver/wms',
+                    url: 'http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wms',
                     params: {
                         'LAYERS': layer_title
                     },
@@ -1424,7 +1424,7 @@ function getinfo(evt) {
                 }
                 var layer_title = layer.get('title');
                 var wmsSource = new ol.source.ImageWMS({
-                    url: 'http://localhost:8080/geoserver/wms',
+                    url: 'http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wms',
                     params: {
                         'LAYERS': layer_title
                     },
@@ -1876,7 +1876,7 @@ function add_draw_Interaction() {
                 var layer_name = document.getElementById("layer1");
                 var value_layer = layer_name.options[layer_name.selectedIndex].value;
 
-                var url = "http://localhost:8080/geoserver/wfs?request=GetFeature&version=1.0.0&typeName=" + value_layer + "&outputFormat=json&cql_filter=INTERSECTS(the_geom," + wkt + ")";
+                var url = "http://ec2-13-60-6-201.eu-north-1.compute.amazonaws.com:8080/geoserver/wfs?request=GetFeature&version=1.0.0&typeName=" + value_layer + "&outputFormat=json&cql_filter=INTERSECTS(the_geom," + wkt + ")";
                 //alert(url);
 
 
