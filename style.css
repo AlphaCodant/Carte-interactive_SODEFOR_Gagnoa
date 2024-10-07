@@ -17,6 +17,11 @@
     // border-width: thin;*/
 
 }
+#fiche_parcelle{
+    top:10%;
+    display: inline-block;
+    color: #4CAF50;
+}
 
 #barre_menu{
     position: absolute;
@@ -25,9 +30,12 @@
     top:0%;
     width: 100%;
     height: 6%;
-    opacity: 0.3;
-    background-color: rgb(63, 137, 11);
+    opacity: 0.7;
+    border-radius: 0%;
+    background-color:white;
     z-index: 300;
+    box-shadow: 20px;
+    box-shadow: 3px 3px 3px #2157a2;
 }
 
 #fenetre_requete{
@@ -57,6 +65,7 @@
 #bouton_lancer_rqt{
     position: relative;
     display: none;
+    background-color: #2157a2;
 }
 
 #centre_gagnoa{
@@ -93,6 +102,11 @@
     border-color: green;
     border-width: 0.5px;
     font-size: 18px;
+    
+}
+#fiche_parcellaire a{
+    text-decoration: none;
+    color: black;
 }
 #fiche_sylvicole{
     position: absolute;
@@ -268,15 +282,40 @@
      top: 1%;
      left: 87%;
      color: rgb(0, 0, 0);
+     background-color: #2157a2;
  }
- #tout_detruire {
-    position: absolute;
+ #imprimer {
+    position: relative;
     z-index: 500;
+    top: 1%;
+    left: 2%;
+    color: rgb(0, 0, 0);
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 10px;
+}
+#fermer {
+    position: relative;
+    z-index: 500;
+    top: 1%;
+    left:70%;
+    color: rgb(0, 0, 0);
+    background-color: rgb(174, 10, 10);
+    border:none;
+    border-radius: 10px;
+}
+#tout_detruire {
+    position:absolute; 
+    width:2.2%;
+    height:4%;
+    z-index:500;
+    margin:0px;
     top: 0.8%;
     left: 96%;
-    border-radius: 60%;
-    color: rgb(0, 0, 0);
+    background-color: red;
+    visibility: hidden;
 }
+
 
  #info_btn {
      position: absolute;
@@ -313,7 +352,7 @@
 
  }*/
  .ol-popup{
-    background-color: #e4d507;
+    background-color: #2157a2;
     border-radius: 5%;
     opacity: 1;
  }

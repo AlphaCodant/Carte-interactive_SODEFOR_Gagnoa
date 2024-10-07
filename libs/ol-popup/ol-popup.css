@@ -7,7 +7,21 @@
     bottom: 12px;
     left: -50px;
 }
-
+.lien_1{
+    color: #0a0a0a;
+    text-decoration: none;
+}
+.lien_1 :hover{
+    color : black;
+}
+.fiche_parcelle{
+    display: inline-block;
+   
+}
+.fiche_sylvi{
+    display: inline-block;
+    
+}
 .ol-popup:after, .ol-popup:before {
     top: 100%;
     border: solid transparent;

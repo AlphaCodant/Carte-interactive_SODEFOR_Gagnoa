@@ -45,18 +45,29 @@
 
 
     <div id="map" class="map">
+      <div id="cadre_frame" style="left:5% ;width:50%;height:92%;border:1px solid #a6a6a8; display:none; z-index: 800;position: absolute; top: 6%; background-color: #ffffff; ">
+        <button id="imprimer" style="display: none;" onclick="imprimer_fiche_pr()">Imprimer/Enregistrer</button>
+      <button id="fermer" style="display: none;" onclick="fermer_cadre()">Fermer</button>
+      <iframe name="display-frame" id="framedis"
+      style="width:100%;height:92%;border:none; z-index: 800;position: relative; top: 2%; display: none;">
+      
+    </iframe>
+      </div>
         <div id="barre_menu">
         </div>
         <img id="logo" src=logo2.jpg>
         <p id="centre_gagnoa">CENTRE DE GESTION DE GAGNOA</p>
-        <button id="fiche_parcellaire">Fiche parcellaire</button>
+        <button id="fiche_parcellaire"><a target="display-frame" href="tableau2.html" >Fiche parcellaire</a></button>
         <button id="fiche_sylvicole">Fiche sylvicole</button>
         <button id="stats">Statistiques</button>
+        <button id="imprimer" style="display: none;">Imprimer</button>
+        <button id="fermer" style="display: none;">Fermer</button>
         <div id="scale_bar"></div>
         <!--<div id="scale_bar1"></div>-->
         <button onclick="wms_layers()" type="button" id="wms_layers_btn" class="btn btn-success btn-sm">BASE DE DONNEES</button>
-        <button onclick="clear_all()" type="button" id="clear_btn" class="btn btn-warning btn-sm">REINITIALISER</button>
-        <button onclick="effacer_tout()" type="button" id="tout_detruire" class="btn btn-danger">X</button>
+        <button onclick="clear_all()" type="button" id="clear_btn">REINITIALISER</button>
+       <!--<button onclick="effacer_tout()" type="button" id="tout_detruire" class="btn btn-danger"></button>-->
+        <button id="tout_detruire" class="btn" onclick="effacer_tout()"></button>
         <button onclick="show_hide_querypanel()" type="button" id="query_panel_btn" class="btn btn-success btn-sm">☰ REQUETES</button>
         <div id="legend"></div>
         <button onclick="show_hide_legend()" type="button" id="legend_btn" class="btn btn-success btn-sm">☰ VOIR LEGENDE</button>
@@ -162,7 +173,7 @@
         </div>
         <br>
         <div id="bouton_lancer_rqt">
-        <button class="btn btn-success" onclick="query()">Load Query</button>
+        <button class="btn btn-success" onclick="query()">Filtrer</button>
         </div>
     </div>
     <!--<div id="query_tab">
@@ -241,11 +252,20 @@
             </div>
         </div>
     </div>
-
-
+    
+    
 
 
     <script src="map.js"></script>
+    <script src="print.js"></script>
+    <!--<script type = "module" src="table.js"></script>-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+        <script
+			src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+			integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
 
 </body>
 

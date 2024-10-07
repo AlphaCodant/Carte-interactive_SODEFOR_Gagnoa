@@ -112,6 +112,26 @@ var Popup = function (_Overlay) {
         _this.closer = document.createElement('a');
         _this.closer.className = 'ol-popup-closer';
         _this.closer.href = '#';
+        _this.btn = document.createElement('button');
+        _this.btn.style.background = "#4CAF50";
+        
+        _this.btn.className = 'fiche_parcelle';
+        _this.container.appendChild(_this.btn);
+        _this.lien1 = document.createElement('a');
+        _this.lien1.className = 'lien_1';
+        _this.lien1.style.color = 'black';
+        _this.lien1.style.decoration = 'none';
+        _this.lien1.href = 'tableau2.html';
+        _this.lien1.innerHTML = "Fiche Parcellaire";
+        _this.lien1.target='display-frame';
+        _this.btn.appendChild(_this.lien1);
+
+        _this.btn2 = document.createElement('button');
+        _this.btn2.style.background = "#4CAF50";
+        _this.btn2.innerHTML = "Fiche Sylvicole";
+        _this.btn2.className = 'fiche_sylvi';
+        _this.container.appendChild(_this.btn2);
+
         _this.container.appendChild(_this.closer);
 
         var that = _this;

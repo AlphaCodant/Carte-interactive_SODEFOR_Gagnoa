@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<title>WebStylePress</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+		/>
+		<link rel="stylesheet" href="custom2.css" />
+	</head>
+	<body>
+		<div class="container receipt-wrap" id="receipt-wrap">
+			<div class="row justify-content-md-center">
+				<div class="receipt-main col-xs-12 col-sm-12 col-md-12">
+					<div class="row">
+						<div class="col-xs-6 col-sm-6 col-md-6">
+							<div class="receipt-left">
+								<img
+									class="img-responsive"
+									alt="iamgurdeeposahan"
+									src="logo2.jpg"
+									style="width: 70px; border-radius: 3px"
+								/>
+							</div>
+						</div>
+				
+					</div>
+
+					<br />
+					<br>
+
+                    <div class="row justify-content-md-center" >
+					
+							<div id="fiche_parcellaire">
+								<h1 id="titre_fiche">FICHE PARCELLAIRE</h1>
+							</div>
+					
+				
+					</div>
+
+					<br />
+					<br>
+
+					<div class="row">
+						<div class="col-xs-6 col-sm-6 col-md-6 text-left">
+							<div class="receipt-right">
+								<p id="cg"><b>Centre de gestion :</b> <p ></p></p>
+								<p id="division"><b>Division :</b><p ></p>  </p>
+								<p id="secteur"><b>Secteur :</b><p ></p> </p>
+                                <p id="foret"><b>Forêt :</b> <p ></p></p>
+								<p><b>Bloc :</b> <p></p></p>
+								<p id="parcelle"><b>Parcelle :</b> <p></p></p>
+                                <p id="sup"><b>Superficie :</b><p ></p> </p>
+								<p id="essence"><b>Essence :</b> <p ></p></p>
+								<p id ="finance"><b>Financement :</b> <p ></p></p>
+							</div>
+						</div>
+						<div
+							class="col-xs-6 col-sm-6 col-md-6 "
+							style="align-self: flex-end"
+						>
+							<div class="receipt-left">
+								<p><b>Type de reboisement :</b><p id="type_r"></p> </p>
+								<p><b>Type de plantation :</b> <p id="type_plantat"></p></p>
+								<p><b>Type de plants :</b><p id="type_p"></p> </p>
+                                <p><b>Méthode :</b><p></p> </p>
+								<p><b>Ecartement :</b><p></p> </p>
+								<p><b>Densité :</b> <p id="densite"></p></p>
+                                <p><b>Provenence :</b><p id ="pro"></p> </p>
+								<p><b>Culture associée :</b> <p></p></p>
+								<p><b>Date de plantation :</b> <p></p></p>
+							</div>
+						</div>
+					</div>
+
+					<br />
+
+					<div>
+						
+                        <table border="1" id="table1" class="table col-xs-12 col-sm-12 col-md-12">
+                            <thead>
+                                <tr>
+                                    <th rowspan="3">DATE</th>
+                                    <th rowspan="3">TRAVAUX</th>
+                                    <th colspan="3">SOUS-TRAITANCE</th>
+                                    <th colspan="5">REGIE</th>
+                                    <th colspan="2">TOTAL</th>
+                                    <th rowspan="3">OBS</th>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">Coût (ha)</th>
+                                    <th rowspan="2">Surface traitée (a) (ha)</th>
+                                    <th rowspan="2">Montant (1)</th>
+                                    <th rowspan="2">Surface traitée (b)</th>
+                                    <th colspan="2">Homme/jour</th>
+                                    <th colspan="2">H/Engins</th>
+                                    <th rowspan="2">Surface traitée (a+b)</th>
+                                    <th rowspan="2">Coût (1+2+3)</th>
+                                </tr>
+                                <tr>
+                                    <th>Qté</th>
+                                    <th>Coût (2)</th>
+                                    <th>Qté</th>
+                                    <th>Coût (3)</th>
+                                </tr>
+                            </thead>
+                        </table>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-xs-8 col-sm-8 col-md-8 text-left">
+							<div class="receipt-right">
+								<h5 style="font-size: 15px;"
+									>Méthode de mise en oeuvre : Sous-traitance. Régie. Taungya. Opérateur du bois. Régénération après coupe.</h5
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+
+			dn = [
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/01",
+                          "Essence": "Cedrela",
+                          "Date": "21/02/2021",
+                          "Travaux": "Entretien",
+                          "Cout1": 141041,
+                          "Surface1": 24.9144,
+                          "Montant1": 9249,
+                          "Surface2": 2343,
+                          "Qte1": 15401,
+                          "Cout2": 9922,
+                          "Qte2": 1918,
+                          "Cout3": 1612,
+                          "Surface3": 12185,
+                          "Cout4": 1716,
+                          "obs": "Bien"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/03",
+                          "Essence": "Gmelina",
+                          "Date": "22/02/2025",
+                          "Travaux": "Elagage",
+                          "Cout1": 141811,
+                          "Surface1": 41.8675500001,
+                          "Montant1": 5183,
+                          "Surface2": 6813,
+                          "Qte1": 10189,
+                          "Cout2": 2586,
+                          "Qte2": 16050,
+                          "Cout3": 2936,
+                          "Surface3": 5629,
+                          "Cout4": 14981,
+                          "obs": "Pas mal"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/10",
+                          "Essence": "Gmelina",
+                          "Date": "23/09/2018",
+                          "Travaux": "Eclaircie",
+                          "Cout1": 154327,
+                          "Surface1": 25.90375,
+                          "Montant1": 10748,
+                          "Surface2": 11383,
+                          "Qte1": 11485,
+                          "Cout2": 13335,
+                          "Qte2": 13267,
+                          "Cout3": 12769,
+                          "Surface3": 16294,
+                          "Cout4": 11051,
+                          "obs": "RAS"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/02",
+                          "Essence": "Cedrela",
+                          "Date": "24/02/2021",
+                          "Travaux": "Sarclacge",
+                          "Cout1": 60407,
+                          "Surface1": 23.17755,
+                          "Montant1": 8582,
+                          "Surface2": 5738,
+                          "Qte1": 3084,
+                          "Cout2": 4064,
+                          "Qte2": 2141,
+                          "Cout3": 13057,
+                          "Surface3": 7164,
+                          "Cout4": 4786,
+                          "obs": "Bien"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/11",
+                          "Essence": "Cedrela",
+                          "Date": "21/02/2021",
+                          "Travaux": "Entretien",
+                          "Cout1": 51492,
+                          "Surface1": 38.15215,
+                          "Montant1": 1473,
+                          "Surface2": 12766,
+                          "Qte1": 5243,
+                          "Cout2": 10623,
+                          "Qte2": 9880,
+                          "Cout3": 11038,
+                          "Surface3": 13753,
+                          "Cout4": 2873,
+                          "obs": "Pas mal"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/12",
+                          "Essence": "Cedrela",
+                          "Date": "22/02/2025",
+                          "Travaux": "Elagage",
+                          "Cout1": 81775,
+                          "Surface1": 22.68035,
+                          "Montant1": 5884,
+                          "Surface2": 8414,
+                          "Qte1": 7984,
+                          "Cout2": 5013,
+                          "Qte2": 13629,
+                          "Cout3": 13916,
+                          "Surface3": 16480,
+                          "Cout4": 2542,
+                          "obs": "RAS"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/09",
+                          "Essence": "Gmelina",
+                          "Date": "23/09/2018",
+                          "Travaux": "Eclaircie",
+                          "Cout1": 36285,
+                          "Surface1": 22.8221205397,
+                          "Montant1": 9986,
+                          "Surface2": 9399,
+                          "Qte1": 1704,
+                          "Cout2": 12715,
+                          "Qte2": 1050,
+                          "Cout3": 8872,
+                          "Surface3": 16475,
+                          "Cout4": 6043,
+                          "obs": "Bien"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/08",
+                          "Essence": "Cedrela",
+                          "Date": "24/02/2021",
+                          "Travaux": "Sarclacge",
+                          "Cout1": 75183,
+                          "Surface1": 25.6803760953,
+                          "Montant1": 3741,
+                          "Surface2": 10315,
+                          "Qte1": 10091,
+                          "Cout2": 15358,
+                          "Qte2": 14066,
+                          "Cout3": 16274,
+                          "Surface3": 12938,
+                          "Cout4": 5231,
+                          "obs": "Pas mal"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/07",
+                          "Essence": "Cedrela",
+                          "Date": "21/02/2021",
+                          "Travaux": "Entretien",
+                          "Cout1": 78822,
+                          "Surface1": 24.7210505455,
+                          "Montant1": 5995,
+                          "Surface2": 12577,
+                          "Qte1": 9384,
+                          "Cout2": 10050,
+                          "Qte2": 4953,
+                          "Cout3": 5829,
+                          "Surface3": 11594,
+                          "Cout4": 6920,
+                          "obs": "RAS"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/06",
+                          "Essence": "Cedrela",
+                          "Date": "22/02/2025",
+                          "Travaux": "Elagage",
+                          "Cout1": 80491,
+                          "Surface1": 24.7559698161,
+                          "Montant1": 12190,
+                          "Surface2": 3318,
+                          "Qte1": 4581,
+                          "Cout2": 2133,
+                          "Qte2": 4949,
+                          "Cout3": 4888,
+                          "Surface3": 16365,
+                          "Cout4": 12317,
+                          "obs": "Bien"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/05 a",
+                          "Essence": "Cedrela",
+                          "Date": "23/09/2018",
+                          "Travaux": "Eclaircie",
+                          "Cout1": 107278,
+                          "Surface1": 15.731933441,
+                          "Montant1": 11608,
+                          "Surface2": 13647,
+                          "Qte1": 10730,
+                          "Cout2": 9839,
+                          "Qte2": 10979,
+                          "Cout3": 11134,
+                          "Surface3": 684,
+                          "Cout4": 5533,
+                          "obs": "Pas mal"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/05 b",
+                          "Essence": "Gmelina",
+                          "Date": "24/02/2021",
+                          "Travaux": "Sarclacge",
+                          "Cout1": 112061,
+                          "Surface1": 11.3350207211,
+                          "Montant1": 8461,
+                          "Surface2": 4767,
+                          "Qte1": 12955,
+                          "Cout2": 5819,
+                          "Qte2": 3754,
+                          "Cout3": 5965,
+                          "Surface3": 671,
+                          "Cout4": 6067,
+                          "obs": "RAS"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/04 b",
+                          "Essence": "Framire",
+                          "Date": "21/02/2021",
+                          "Travaux": "Entretien",
+                          "Cout1": 27906,
+                          "Surface1": 6.50699676455,
+                          "Montant1": 4072,
+                          "Surface2": 1028,
+                          "Qte1": 15187,
+                          "Cout2": 9563,
+                          "Qte2": 13975,
+                          "Cout3": 10214,
+                          "Surface3": 759,
+                          "Cout4": 12555,
+                          "obs": "Bien"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/04 a",
+                          "Essence": "Cedrela",
+                          "Date": "22/02/2025",
+                          "Travaux": "Elagage",
+                          "Cout1": 57943,
+                          "Surface1": 37.0243032354,
+                          "Montant1": 158,
+                          "Surface2": 3732,
+                          "Qte1": 13321,
+                          "Cout2": 15539,
+                          "Qte2": 6073,
+                          "Cout3": 5923,
+                          "Surface3": 5376,
+                          "Cout4": 9256,
+                          "obs": "Pas mal"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/14",
+                          "Essence": "Framire",
+                          "Date": "23/09/2018",
+                          "Travaux": "Eclaircie",
+                          "Cout1": 76378,
+                          "Surface1": 24.5770126132,
+                          "Montant1": 9327,
+                          "Surface2": 10169,
+                          "Qte1": 16076,
+                          "Cout2": 13356,
+                          "Qte2": 2691,
+                          "Cout3": 13801,
+                          "Surface3": 10843,
+                          "Cout4": 1978,
+                          "obs": "RAS"
+                        },
+                        {
+                          "CG": "Gagnoa",
+                          "Foret": "Tene",
+                          "Parcelle": "2-23/13",
+                          "Essence": "Framire",
+                          "Date": "24/02/2021",
+                          "Travaux": "Sarclacge",
+                          "Cout1": 131045,
+                          "Surface1": 22.4786395772,
+                          "Montant1": 8315,
+                          "Surface2": 15643,
+                          "Qte1": 7462,
+                          "Cout2": 2666,
+                          "Qte2": 2742,
+                          "Cout3": 508,
+                          "Surface3": 10555,
+                          "Cout4": 10426,
+                          "obs": "Bien"
+                        }
+                      ];
+		
+		setTimeout(function (){
+			
+			let c_g = document.getElementById("cg");
+			let for_et = document.getElementById("foret");
+			let parce = document.getElementById("parcelle");
+			let ess_ence = document.getElementById("essence");
+			
+			
+			
+			let mot = "ide=";
+                    let tab = document.cookie.split(";");
+                    let id_id;
+                    for (let i=0;i<tab.length;i++){
+                        let c = tab[i];
+                        while (c.charAt("0")==' '){
+                            c = c.substring(1,c.length);
+                        }
+                        if (c.indexOf(mot)==0){
+                            id_id = c.substring(mot.length,c.length);
+                        }                        
+                    }
+			let look = id_id;
+			for (let j=0; j<dn.length;j++){
+				let element = dn[j];
+				if (element["Parcelle"]==id_id){
+					c_g.innerHTML+=element["CG"];
+					for_et.innerHTML+=element["Foret"];
+					ess_ence.innerHTML+=element["Essence"];
+					parce.innerHTML+=element["Parcelle"];
+				}
+			}
+			
+		},0);
+
+	</script>
+	
+</html>

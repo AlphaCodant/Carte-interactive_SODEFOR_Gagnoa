@@ -2,7 +2,9 @@ var map, geojson, featureOverlay, overlays, style;
 var selected, features, layer_name, layerControl;
 var content;
 var selectedFeature;
-
+var declencheur=0;
+let id;
+let dn;
 
 var view = new ol.View({
     projection: 'EPSG:4326',
@@ -54,6 +56,11 @@ overlays = new ol.layer.Group({
     'title': 'Donnees',
     layers: []
 });
+
+
+
+// Send a request
+
 
 /*var ind_state = new ol.layer.Image({
             title: 'india_state',
@@ -139,6 +146,8 @@ geocoder.on('addresschosen', function(evt) {
 });*/
 //custom Scale
 
+
+
 function fen_requete(){
     $( "#fenetre_requete" ).dialog({
         height: 500,
@@ -194,7 +203,7 @@ function legend() {
 
     var head = document.createElement("h8");
 
-    var txt = document.createTextNode("LEGENDE");
+    var txt = document.createTextNode("Légende");
 
     head.appendChild(txt);
     var element = document.getElementById("legend");
@@ -726,17 +735,17 @@ function query() {
 
     style = new ol.style.Style({
         fill: new ol.style.Fill({
-            color: 'rgba(255, 255, 255, 0.2)'
+            color: 'rgba(37, 150, 190, 0.3)'
         }),
         stroke: new ol.style.Stroke({
-            color: '#ffcc33',
+            color: '#2157a2',
             width: 3
         }),
 
         image: new ol.style.Circle({
             radius: 7,
             fill: new ol.style.Fill({
-                color: '#ffcc33'
+                color: '#2157a2'
             })
         })
     });
@@ -782,13 +791,14 @@ function query() {
 
 
         var table = document.createElement("table");
+        if (table){declencheur=1};
         table.setAttribute("class", "table table-hover table-striped");
         table.setAttribute("id", "table");
 
         var caption = document.createElement("caption");
         caption.setAttribute("id", "caption");
         caption.style.captionSide = 'top';
-        caption.innerHTML = value_layer + " (Number of Features : " + data.features.length + " )";
+        caption.innerHTML = value_layer + " (Nbre de résultat filtré : " + data.features.length + " )";
         table.appendChild(caption);
 
 
@@ -902,7 +912,7 @@ function highlight(evt) {
             $("#table td:nth-child(" + col_no + ")").each(function() {
 
                 if ($(this).text() == feature.getId()) {
-                    $(this).parent("tr").css("background-color", "yellow");
+                    $(this).parent("tr").css("background-color", "#2157a2");
 
                 }
             });
@@ -970,7 +980,7 @@ function addRowHandlers() {
                 $(document).ready(function() {
                     $("#table td:nth-child(" + col_no + ")").each(function() {
                         if ($(this).text() == id) {
-                            $(this).parent("tr").css("background-color", "yellow");
+                            $(this).parent("tr").css("background-color", "#2157a2");
                         }
                     });
                 });
@@ -1082,7 +1092,7 @@ function wms_layers() {
                     $(document).ready(function() {
                         $("#table_wms_layers td:nth-child(" + col_no + ")").each(function() {
                             if ($(this).text() == layer_name) {
-                                $(this).parent("tr").css("background-color", "yellow");
+                                $(this).parent("tr").css("background-color", "#2157a2");
 
 
 
@@ -1098,14 +1108,15 @@ function wms_layers() {
     }
 
 }
+var i=0;
 // add wms layer to map on click of button
 function add_layer() {
     //	alert("jd"); 
 
     // alert(layer_name);
     //map.removeControl(layerSwitcher);
-
-    var name = layer_name.split(":");
+   
+    var name = layer_name.split("-");
     //alert(layer_name);
     var layer_wms = new ol.layer.Image({
         title: layer_name,
@@ -1119,9 +1130,16 @@ function add_layer() {
             serverType: 'geoserver'
         })
     });
-    overlays.getLayers().push(layer_wms);
-
-    var url = 'http://localhost:8080/geoserver/wms?request=getCapabilities';
+    
+    var alterneur = layer_name+i;
+    
+    if (layer_name&&i==0){
+        overlays.getLayers().push(layer_wms);
+        console.log(alterneur);
+        valeurTitle=[];
+        valeurTitle.push(layer_name);
+        i++;
+        var url = 'http://localhost:8080/geoserver/wms?request=getCapabilities';
     var parser = new ol.format.WMSCapabilities();
 
 
@@ -1154,6 +1172,67 @@ function add_layer() {
 
     layerSwitcher.renderPanel();
     legend();
+    }
+    else {
+        var etat;
+        var status;
+        for (var y=0;y<valeurTitle.length;y++){
+            etat = valeurTitle[y];
+            if (etat==layer_name){
+                status=1;
+            }
+        }
+        if (status==1){
+            alert("Donnée existe dans l'overlay");
+        }else{
+            overlays.getLayers().push(layer_wms);
+            valeurTitle.push(layer_name);
+            console.log(valeurTitle);
+            i++;
+            var url = 'http://localhost:8080/geoserver/wms?request=getCapabilities';
+    var parser = new ol.format.WMSCapabilities();
+
+
+    $.ajax(url).then(function(response) {
+        //window.alert("word");
+        var result = parser.read(response);
+        // console.log(result);
+        // window.alert(result);
+        var Layers = result.Capability.Layer.Layer;
+        var extent;
+        for (var i = 0, len = Layers.length; i < len; i++) {
+
+            var layerobj = Layers[i];
+            //  window.alert(layerobj.Name);
+
+            if (layerobj.Name == layer_name) {
+                extent = layerobj.BoundingBox[0].extent;
+                //alert(extent);
+                map.getView().fit(
+                    extent, {
+                        duration: 1590,
+                        size: map.getSize()
+                    }
+                );
+
+            }
+        }
+    });
+
+
+    layerSwitcher.renderPanel();
+    legend();
+        }
+    }
+    /*if (!layer_name in valeurTitle){
+        overlays.getLayers().push(layer_wms);
+        console.log(valeurTitle);
+        valeurTitle.push(layer_name);
+        i++;
+    }
+    else{
+        alert("Donnée déja");
+    }*/
 
 }
 
@@ -1164,7 +1243,7 @@ function close_wms_window() {
 function info() {
     if (document.getElementById("info_btn").innerHTML == "☰ ACTIVER INFOS") {
         document.getElementById("info_btn").innerHTML = "☰ DESACTIVER INFOS";
-        document.getElementById("info_btn").setAttribute("class", "btn btn-warning btn-sm");
+        document.getElementById("info_btn").setAttribute("class", "btn btn-primary btn-sm");
         map.on('singleclick', getinfo);
         }
         else {
@@ -1180,7 +1259,14 @@ function info() {
         }
     }
 }
-
+function fermer_cadre(){
+    document.getElementById("cadre_frame").style.display="none";
+}
+function imprimer_fiche_pr(){
+    let wspFrame = document.getElementById('framedis').contentWindow;
+    wspFrame.focus();
+    wspFrame.print();
+}
 // getinfo function
 function getinfo(evt) {
 
@@ -1194,66 +1280,249 @@ function getinfo(evt) {
     if (content) {
         content = '';
     }
-    overlays.getLayers().getArray().slice().forEach(layer => {
-        var visibility = layer.getVisible();
-        console.log(visibility);
-        if (visibility == true) {
+    if (document.getElementById('map').style.height == '68%'){
+        overlays.getLayers().getArray().slice().forEach(layer => {
+            var visibility = layer.getVisible();
+            console.log(visibility);
+            if (visibility == true) {
 
-            var layer_title = layer.get('title');
-            var wmsSource = new ol.source.ImageWMS({
-                url: 'http://localhost:8080/geoserver/wms',
-                params: {
-                    'LAYERS': layer_title
-                },
-                serverType: 'geoserver',
-                crossOrigin: 'anonymous'
-            });
-            var url = wmsSource.getFeatureInfoUrl(
-                evt.coordinate, viewResolution, 'EPSG:4326', {
-                    'INFO_FORMAT': 'text/html'
+                if (document.getElementById("framedis")){
+                    function effacer () {
+                        //var d = window.parent.document;
+                        var frame = document.getElementById('framedis');
+                        frame.style.display="none";
+                        var frame2 = document.getElementById('cadre_frame');
+                        frame2.style.display="none";
+                        //frame.parentNode.removeChild(frame);
+                        //e.preventDefault();
+                    }
+                    effacer()
+                }
+
+                document.getElementById("framedis").style.top="8%";
+                document.getElementById("framedis").style.height="92%";
+                var layer_title = layer.get('title');
+                var wmsSource = new ol.source.ImageWMS({
+                    url: 'http://localhost:8080/geoserver/wms',
+                    params: {
+                        'LAYERS': layer_title
+                    },
+                    serverType: 'geoserver',
+                    crossOrigin: 'anonymous'
                 });
-            var url1 = wmsSource.getFeatureInfoUrl(
-                evt.coordinate, viewResolution, 'EPSG:4326', {
-                    'INFO_FORMAT': 'application/json'
+                var url = wmsSource.getFeatureInfoUrl(
+                    evt.coordinate, viewResolution, 'EPSG:4326', {
+                        'INFO_FORMAT': 'text/html'
+                    });
+                var url1 = wmsSource.getFeatureInfoUrl(
+                    evt.coordinate, viewResolution, 'EPSG:4326', {
+                        'INFO_FORMAT': 'application/json'
+                    });
+    
+                //assuming you use jquery
+                /*$.get(url, function(data) {
+    
+                    // $("#popup-content").append(data);
+                    //document.getElementById('popup-content').innerHTML = '<p>Feature Info</p><code>' + data + '</code>';
+                    content += data;
+                    // overlay.setPosition(coordinate);
+                    popup.show(evt.coordinate, content);
+                    //console.log(data.features[0].properties);
+                    //document.getElementById('fiche_parcellaire').style.display='inline-block';
+                    //document.getElementById('fiche_sylvicole').style.display='inline-block';
+    
+    
+                });*/
+                $.get(url1, function(data) {
+                    document.cookie = `ide =${data.features[0].properties.numéro};expires = Fri, 11 oct 2024 12:30 UTC; path=/`;
+                    let mot = "ide=";
+                    let tab = document.cookie.split(";");
+                    let id_id;
+                    for (let i=0;i<tab.length;i++){
+                        let c = tab[i];
+                        while (c.charAt("0")==' '){
+                            c = c.substring(1,c.length);
+                        }
+                        if (c.indexOf(mot)==0){
+                            id_id = c.substring(mot.length,c.length);
+                        }
+                    }
+                    document.querySelector('#fiche_parcellaire').addEventListener('click', function () {
+                        let cadre = document.getElementById('cadre_frame');
+                        cadre.style.display='inline-block';
+                        cadre.style.top="8%";
+                        cadre.style.height="89%";
+                        let cadre2 = document.getElementById('framedis');
+                        cadre2.style.display='inline-block';
+                        cadre2.style.top='1.5%';
+                        let printit = document.getElementById('imprimer');
+                        printit.style.display= "inline-block";
+                        let close = document.getElementById('fermer');
+                        close.style.display= "inline-block";
+                    });
+    
+                    // $("#popup-content").append(data);
+                    //document.getElementById('popup-content').innerHTML = '<p>Feature Info</p><code>' + data + '</code>';
+                    //content += data;
+                    // overlay.setPosition(coordinate);
+                    //popup.show(evt.coordinate, content);
+
+                    /*console.log(data.features[0].properties);
+                    console.log(data.features[0].properties.num);
+                    console.log(data.features[0].properties.numéro);
+                    console.log(id);
+                    let dn = donnees_fictives.json;
+                    console.log(dn);
+                    dn = JSON.stringify(dn);
+                    let informations=[];
+                    for (let i = 0; i<dn.length;i++){
+                        let element = dn[i];
+                        if (element["Parcelle"]==id){
+                            informations.push(element);
+                        }
+                        console.log(element);
+                        console.log(informations);
+                    }
+                    let notreTable = document.getElementById("table1");
+
+                    for (let j=0;j<informations.length;j++){
+                        notreTable.innerHTML+=`<tr id="ligne${j}"></tr>`
+                        let notreLigne = document.getElementById(`ligne${j}`);
+                        for(let i=4;i<informations[0].length;i++){
+                            notreLigne.innerHTML += `<td>${i}</td>`;
+                        }
+                    }*/
+
+                    document.getElementById('fiche_parcellaire').style.display='inline-block';
+                    document.getElementById('fiche_sylvicole').style.display='inline-block';
+                    //document.getElementById('stats').style.display='inline-block';
+
+                    
+    
+    
                 });
+                
+            }
+    
+        });
+    }else{
+        overlays.getLayers().getArray().slice().forEach(layer => {
+            var visibility = layer.getVisible();
+            console.log(visibility);
+            if (visibility == true) {
+                if (document.getElementById("framedis")){
+                    function effacer () {
+                        //var d = window.parent.document;
+                        var frame = document.getElementById('framedis');
+                        frame.style.display="none";
+                        var frame2 = document.getElementById('cadre_frame');
+                        frame2.style.display="none";
+                        //frame.parentNode.removeChild(frame);
+                        //e.preventDefault();
+                    }
+                    effacer()
+                }
+                var layer_title = layer.get('title');
+                var wmsSource = new ol.source.ImageWMS({
+                    url: 'http://localhost:8080/geoserver/wms',
+                    params: {
+                        'LAYERS': layer_title
+                    },
+                    serverType: 'geoserver',
+                    crossOrigin: 'anonymous'
+                });
+                var url = wmsSource.getFeatureInfoUrl(
+                    evt.coordinate, viewResolution, 'EPSG:4326', {
+                        'INFO_FORMAT': 'text/html'
+                    });
+                var url1 = wmsSource.getFeatureInfoUrl(
+                    evt.coordinate, viewResolution, 'EPSG:4326', {
+                        'INFO_FORMAT': 'application/json'
+                    });
+    
+                //assuming you use jquery
+                $.get(url, function(data) {
 
-            //assuming you use jquery
-            $.get(url, function(data) {
+                    
+                    //$("#popup-content").append(data);
+                    // $("#popup-content").append(data);
+                    //document.getElementById('popup-content').innerHTML = '<p>Feature Info</p><code>' + data + '</code>';
+                    content += data;
+                    // overlay.setPosition(coordinate);
+                    popup.show(evt.coordinate, data);
+                
+                    //console.log(data.features[0].properties);
+                    //document.getElementById('fiche_parcellaire').style.display='inline-block';
+                    //document.getElementById('fiche_sylvicole').style.display='inline-block';
+    
+    
+                });
+                $.get(url1, function(data) {
+                        
+                    $("#popup-content").append(data);
+                    //document.getElementById('popup-content').innerHTML = '<p>Feature Info</p><code>' + data + '</code>';
+                    content += data.features[0].properties.numéro;
 
-                // $("#popup-content").append(data);
-                //document.getElementById('popup-content').innerHTML = '<p>Feature Info</p><code>' + data + '</code>';
-                content += data;
-                // overlay.setPosition(coordinate);
-                popup.show(evt.coordinate, content);
-                //console.log(data.features[0].properties);
-                //document.getElementById('fiche_parcellaire').style.display='inline-block';
-                //document.getElementById('fiche_sylvicole').style.display='inline-block';
+                    //overlays.setPosition(coordinate);
+                    popup.show(evt.coordinate, content);
+                    console.log(data.features[0].properties);
+                    console.log(data.features[0].properties.X+data.features[0].properties.Y)
+
+                    id = data.features[0].properties.numéro;
+                    console.log(id);
+
+                    //console.log(dn);
+                    //dn = JSON.stringify(dn);
+                    
+                    document.cookie = `ide =${data.features[0].properties.numéro};expires = Fri, 11 oct 2024 12:30 UTC; path=/`;
+                    let mot = "ide=";
+                    let tab = document.cookie.split(";");
+                    let id_id;
+                    for (let i=0;i<tab.length;i++){
+                        let c = tab[i];
+                        while (c.charAt("0")==' '){
+                            c = c.substring(1,c.length);
+                        }
+                        if (c.indexOf(mot)==0){
+                            id_id = c.substring(mot.length,c.length);
+                        }
+                    }
+                    console.log(id_id);
 
 
-            });
-            $.get(url1, function(data) {
-
-                // $("#popup-content").append(data);
-                //document.getElementById('popup-content').innerHTML = '<p>Feature Info</p><code>' + data + '</code>';
-                //content += data;
-                // overlay.setPosition(coordinate);
-                //popup.show(evt.coordinate, content);
-                console.log(data.features[0].properties);
-                console.log(data.features[0].properties.X+data.features[0].properties.Y)
-                document.getElementById('fiche_parcellaire').style.display='inline-block';
-                document.getElementById('fiche_sylvicole').style.display='inline-block';
-                document.getElementById('stats').style.display='inline-block';
-
-
-            });
-            
-        }
-
-    });
-
+                    //console.log(document.cookie);
+                    //document.getElementById('fiche_parcellaire').style.display='inline-block';
+                    //document.getElementById('fiche_sylvicole').style.display='inline-block';
+                    //document.getElementById('stats').style.display='inline-block';
+                });
+            }else{document.getElementsByClassName('fiche_parcelle').style.display='none';}
+        });
+    }
 }
 
-
+/*document.querySelector("#fiche_parcellaire").addEventListener('click',function(){
+    
+    let informations=[];
+                    
+    for (let i = 0; i<dn.length;i++){
+        let element = dn[i];
+        if (element["Parcelle"]==id){
+            informations.push(element);
+        }
+    }
+    console.log(informations);
+    
+    let notreTable = document.getElementById("table1");
+    let parce = document.querySelector("#parcelle"); 
+    
+    for (let j=0;j<2;j++){
+        parce.innerHTML=id;
+        let notreLigne = document.getElementById(`ligne${j}`);
+        for(let i=4;i<2;i++){
+            notreLigne.innerHTML += `<td>${i}</td>`;
+        }
+    }
+});*/
 
 // clear function
 function clear_all() {
@@ -1270,6 +1539,9 @@ function clear_all() {
     document.getElementById('barre_menu').style.height = '6%';
     document.getElementById('logo').style.height = '5%';
     document.getElementById('fenetre_requete').style.display = 'none';
+    document.getElementById('fiche_parcellaire').style.display='none';
+    document.getElementById('fiche_sylvicole').style.display='none';
+    //document.getElementById('stats').style.display='none';
     map.updateSize();
     $('#table').empty();
     $('#legend').empty();
@@ -1421,7 +1693,7 @@ function show_hide_querypanel() {
     /*if (document.getElementById("fenetre_requete").style.visibility == "hidden") {
 
         document.getElementById("query_panel_btn").innerHTML = "☰ FERMER PANNEAU";
-        document.getElementById("query_panel_btn").setAttribute("class", "btn btn-warning btn-sm");
+        document.getElementById("query_panel_btn").setAttribute("class", "btn btn-primary btn-sm");
         document.getElementById("fenetre_requete").style.visibility = "visible";
         //document.getElementById("query_tab").style.width = "21%";
         document.getElementById("map").style.width = "79%";
@@ -1447,7 +1719,7 @@ function show_hide_legend() {
     if (document.getElementById("legend").style.visibility == "hidden") {
 
         document.getElementById("legend_btn").innerHTML = "☰ FERMER LEGENDE";
-		document.getElementById("legend_btn").setAttribute("class", "btn btn-warning btn-sm");
+		document.getElementById("legend_btn").setAttribute("class", "btn btn-primary btn-sm");
 
         document.getElementById("legend").style.visibility = "visible";
         document.getElementById("legend").style.width = "15%";
@@ -1757,16 +2029,16 @@ var vectorLayer = new ol.layer.Vector({
     source: source,
     style: new ol.style.Style({
         fill: new ol.style.Fill({
-            color: 'rgba(255, 255, 255, 0.2)'
+            color: 'rgba(37, 150, 190, 0.2)'
         }),
         stroke: new ol.style.Stroke({
-            color: '#ffcc33',
+            color: '#2157a2',
             width: 2
         }),
         image: new ol.style.Circle({
             radius: 7,
             fill: new ol.style.Fill({
-                color: '#ffcc33'
+                color: '#2157a2'
             })
         })
     })
@@ -2069,3 +2341,4 @@ function createMeasureTooltip() {
     map.addOverlay(measureTooltip);
 
 }
+
